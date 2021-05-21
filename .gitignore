@@ -1,0 +1,6 @@
+/.vscode/
+/datas/
+/logs/
+/models/
+*.pcy
+*.out
