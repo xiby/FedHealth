@@ -24,12 +24,7 @@ class BaseServer():
         '''
         开启整个的训练
         '''
-        for i in range(rounds):
-            for client in self.clients:
-                client.loadParams(self.param)
-                client.trainModel()
-                self.paramList.append(client.reportParams)
-            self.aggregate()
+        raise NotImplementedError
     def testModel(self):
         '''
         对聚合后的模型进行训练
