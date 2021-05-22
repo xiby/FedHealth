@@ -33,4 +33,18 @@ class Server(BaseServer):
         全局模型不需要测试
         '''
         pass
+    def startTrainLoop(self, rounds=80):
+        '''
+        开启训练循环
+        默认训练80轮
+        '''
+        self.trainModel()
+        for client in self.clients:
+            client.loadParams(self.model.state_dict())
+            client.trainModel()
+            self.paramList.append(client.reportParams())
+        self.aggregate()
+        
+        
+
 
