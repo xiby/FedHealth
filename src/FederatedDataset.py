@@ -4,7 +4,7 @@
 import random
 import torch
 
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, DataLoader
 
 class FederatedDataset(Dataset):
     def __init__(self, root, size=600, transform=None,  subjects=None, train=True):
@@ -45,5 +45,11 @@ class FederatedDataset(Dataset):
 if __name__ == "__main__":
     dataset_full = FederatedDataset('../datas/UCI_DATASET/')
     dataset_26 = FederatedDataset('../datas/UCI_DATASET/', subjects=[26])
-    print(len(dataset_full))
+    dataset_full_test = FederatedDataset('../datas/UCI_DATASET', train=False)
+    print(len(dataset_full) + len(dataset_full_test))
     print(len(dataset_26))
+    dataloader = DataLoader(dataset_26, batch_size=64)
+    for batch, (X, y) in enumerate(dataloader):
+        print(X.shape)
+        X, y = X.to('cpu'), y.to('cpu')
+        # break
